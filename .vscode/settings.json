@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "SMODS",
+        "localize",
+        "play_sound",
+        "G",
+        "Event"
+    ]
+}
