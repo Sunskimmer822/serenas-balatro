@@ -56,12 +56,7 @@ SMODS.Joker {
     cost = 6,
     calculate = function(self, card, context)
 
-
-
         -- TODO: Handle Fortune Teller (maybe need to use a lovely injection to force the updated values to be added)
-
-
-
 
         if context.end_of_round and not context.game_over and context.main_eval then
             for _, joker in ipairs(G.jokers.cards) do
@@ -70,7 +65,7 @@ SMODS.Joker {
 
                     print("type of value attached to field "..i.." on joker "..joker.ability.name.. " is "..type(v))
 
-                    if type(v) == "number" and ((v>0) or ((i=="x_mult") and v~=0) or ((i=="h_x_mult") and v~=0)) and (i ~= "order") and (i ~= "cost") then
+                    if type(v) == "number" and ((v>0) or (((i=="x_mult")or(i=="xmult")) and v~=0) or ((i=="h_x_mult") and v~=0)) and (i ~= "order") and (i ~= "cost") then
                         G.jokers.cards[_].ability[i] = v + card.ability.extra.increment
                         print("incremented field "..i.." to "..v)
                     elseif type(v) == "table" then
@@ -91,4 +86,32 @@ SMODS.Joker {
             }
         end
     end
+}
+
+-- SMODS.Joker {
+--     key = "mimic",
+--     name = "Mimic",
+--     atlas = "jokers_atlas",
+--     pos = { x = 2, y = 0 },
+--     unlocked = true,
+--     discovered = true,
+    
+-- }
+
+SMODS.Joker {
+    key = "dr_house",
+    name = "Dr. House",
+    atlas = "jokers_atlas",
+    pos = { x = 3, y = 0 },
+    unlocked = true,
+    discovered = true,
+    config = { extra = { x_mult = 1, increase = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.x_mult, card.ability.extra.increase } }
+    end,
+    rarity = 2,
+    cost = 8,
+    calculate = function(self, card, context)
+
+    end,
 }

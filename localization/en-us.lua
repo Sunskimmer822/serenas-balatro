@@ -17,7 +17,7 @@ return {
                 name = "Inflation Joker",
                 text = {
                     "Increases {C:green}every value{} on each",
-                    "held joker by {C:money}#1#{} at the end of the round.",
+                    "held joker by {C:money}#1#{} at the end of each round.",
                 },
             },
         },
