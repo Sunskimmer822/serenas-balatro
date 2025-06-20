@@ -21,6 +21,6 @@ vanilla_food = {
 }
 
 modded_food = {
-    j_vanilla = true,
-    j_500_cigarettes = true,
+    j_serena_vanilla = true,
+    j_serena_500_cigarettes = true,
 }

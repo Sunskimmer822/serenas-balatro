@@ -24,7 +24,7 @@ SMODS.Joker {
                 if card.ability.extra.remaining > 0 then
                     G.GAME.current_round.hands_left = G.GAME.round_resets.hands
                     G.GAME.current_round.discards_left = G.GAME.round_resets.discards
-                    play_sound('serenasbalatro_soul')
+                    play_sound('serena_soul')
                     card.ability.extra.remaining = card.ability.extra.remaining - 1
                 end
             end
@@ -84,7 +84,7 @@ SMODS.Joker {
             end
 
             return {
-                message = localize("k_nums_increased"),
+                message = localize("k_serena_nums_increased"),
                 colour = G.C.MONEY
             }
         end
@@ -137,20 +137,27 @@ SMODS.Joker {
     cost = 8,
     calculate = function(self, card, context)
         --stage 1: remove debuff on played hand
-        if context.before and context.cardarea == G.play then
+        local check = false
+        if context.before then
             for i, played_card in ipairs(G.play.cards) do
-                print("index "..i.." has card "..played_card.ability.name)
-                if played_card.debuffed then
-                    G.play.cards[i].debuffed = false
+                if played_card.debuff then
+                    G.play.cards[i].debuff = false
                     card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.increase
+                    check = true                    
                 end
             end
         end
+        if check then 
+            return {
+                message = localize('k_serena_debuff_removed')
+            }
+        end
+
 
         --stage 2: do the xmult thing 🤤🤤🤤🤤🤤
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult
+                xmult = card.ability.extra.x_mult
             }
         end
 

@@ -3,7 +3,7 @@ return {
         Back = {}, --decks
         Blind = {}, --blinds
         Joker = {
-            j_serenasbalatro_determination = {
+            j_serena_determination = {
                 name = "{C:red}DETERMINATION{}",
                 text = {
                     "{C:inactive}The hardened {S:1.1,C:red,E:2}SOUL{} in your chest.{}",
@@ -13,20 +13,20 @@ return {
                     "after a boss blind is defeated."
                 },
             },
-            j_serenasbalatro_inflation = {
+            j_serena_inflation = {
                 name = "Inflation Joker",
                 text = {
                     "Increases {C:green}every value{} on each",
                     "held joker by {C:money}#1#{} at the end of each round.",
                 },
             },
-            j_serenasbalatro_mimic = {
+            j_serena_mimic = {
                 name = "Mimic",
                 text = {
 
                 },
             },
-            j_serenasbalatro_dr_house = {
+            j_serena_dr_house = {
                 name = "Dr. House",
                 text = {
                     "This joker gains {X:mult,C:white}x#2#{} mult when a debuffed card is played,",
@@ -35,5 +35,11 @@ return {
                 }
             }
         },
+        misc = {
+            dictionary = {
+                k_serena_nums_increased = "Values UP!",
+                k_serena_debuff_removed = "Cured!",
+            }
+        }
     }
 }
