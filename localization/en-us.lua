@@ -6,11 +6,11 @@ return {
             j_serenasbalatro_determination = {
                 name = "{C:red}DETERMINATION{}",
                 text = {
-                    "{C:inactive}The hardened SOUL in your chest.{}",
+                    "{C:inactive}The hardened {S:1.1,C:red,E:2}SOUL{} in your chest.{}",
                     "When you would die, replenish",
-                    "all of your {S:1.1,C:red,E:2}Hands{} and {S:1.1,C:red,E:2}Discards{}.",
-                    "Deactivates after {S:1.1,C:red,E:2}#1#{} activation(s), and replenishes",
-                    "after defeating a boss blind."
+                    "all of your {S:1.1,C:red}Hands{} and {S:1.1,C:red}Discards{}.",
+                    "Inactive after {S:1.1,C:red,E:2}#1#{} activation(s), and replenishes",
+                    "after a boss blind is defeated."
                 },
             },
             j_serenasbalatro_inflation = {
@@ -20,6 +20,20 @@ return {
                     "held joker by {C:money}#1#{} at the end of each round.",
                 },
             },
+            j_serenasbalatro_mimic = {
+                name = "Mimic",
+                text = {
+
+                },
+            },
+            j_serenasbalatro_dr_house = {
+                name = "Dr. House",
+                text = {
+                    "This joker gains {X:mult,C:white}x#2#{} mult when a debuffed card is played,",
+                    "and removes debuffed from the card.",
+                    "{C:inactive}Currently x#1# mult.{}"
+                }
+            }
         },
     }
 }

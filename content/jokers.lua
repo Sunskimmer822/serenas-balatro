@@ -2,7 +2,6 @@
 -- DETERMINATION
 SMODS.Joker {
     key = "determination",
-    name = "Determination",
     atlas = "jokers_atlas",
     pos = { x = 0, y = 0 },
     unlocked = true,
@@ -15,35 +14,39 @@ SMODS.Joker {
     end,
     blueprint_compat = false,
     calculate = function(self, card, context)
-        if context.setting_blind and not self.getting_sliced then
-            card.ability.extra.remaining = G.GAME.round_resets.ante
+        if context.end_of_round and G.GAME.blind.boss then
+            card.ability.extra.remaining = G.GAME.round_resets.ante + 1
         end
 
-        if context.end_of_round and context.game_over and context.main_eval and ( card.ability.extra.remaining > 0 ) then
-            G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.GAME.current_round.hands_left = G.GAME.round_resets.hands;
-                        G.GAME.current_round.discards_left = G.GAME.round_resets.discards;
-                        play_sound('serenasbalatro_soul')
-                        card.ability.extra.remaining = card.ability.extra.remaining - 1
-                        context.main_eval = false
-                        return true
-                    end
-                }))
-                return {
-                    message = localize('k_saved_ex'),
-                    saved = 'ph_mr_bones',
-                    colour = G.C.RED
-                }
+        if context.after then
+            print(G.GAME.current_round.hands_left)
+            if G.GAME.current_round.hands_left == 0 then
+                if card.ability.extra.remaining > 0 then
+                    G.GAME.current_round.hands_left = G.GAME.round_resets.hands
+                    G.GAME.current_round.discards_left = G.GAME.round_resets.discards
+                    play_sound('serenasbalatro_soul')
+                    card.ability.extra.remaining = card.ability.extra.remaining - 1
+                end
+            end
         end
-    end
+    end,
+    sb_credits = {
+        idea = {
+            "Annalert"
+        },
+        art = {
+            "Serena"
+        },
+        code = {
+            "Serena"
+        }
+    }
     
 }
 
 -- Inflation
 SMODS.Joker {
     key = "inflation",
-    name = "Inflation",
     atlas = "jokers_atlas",
     pos = { x = 1, y = 0 },
     unlocked = true,
@@ -65,7 +68,7 @@ SMODS.Joker {
 
                     print("type of value attached to field "..i.." on joker "..joker.ability.name.. " is "..type(v))
 
-                    if type(v) == "number" and ((v>0) or (((i=="x_mult")or(i=="xmult")) and v~=0) or ((i=="h_x_mult") and v~=0)) and (i ~= "order") and (i ~= "cost") then
+                    if type(v) == "number" and ((v>0) or ((i=="Xmult" and v>1) or (i=="xmult" and v>1) or (i=="h_x_chips" and v>1) or (i=="x_chips" and v>1))) and (i ~= "order") and (i ~= "cost") then
                         G.jokers.cards[_].ability[i] = v + card.ability.extra.increment
                         print("incremented field "..i.." to "..v)
                     elseif type(v) == "table" then
@@ -85,7 +88,18 @@ SMODS.Joker {
                 colour = G.C.MONEY
             }
         end
-    end
+    end,
+    sb_credits = {
+        idea = {
+            "Serena"
+        },
+        art = {
+            "Serena"
+        },
+        code = {
+            "Serena"
+        }
+    }
 }
 
 -- SMODS.Joker {
@@ -95,12 +109,22 @@ SMODS.Joker {
 --     pos = { x = 2, y = 0 },
 --     unlocked = true,
 --     discovered = true,
-    
+--     ,
+    -- sb_credits = {
+    --     idea = {
+    --         "Serena"
+    --     },
+    --     art = {
+    --         "Penta"
+    --     },
+    --     code = {
+    --         "Serena"
+    --     }
+    -- }  
 -- }
 
 SMODS.Joker {
     key = "dr_house",
-    name = "Dr. House",
     atlas = "jokers_atlas",
     pos = { x = 3, y = 0 },
     unlocked = true,
@@ -112,6 +136,34 @@ SMODS.Joker {
     rarity = 2,
     cost = 8,
     calculate = function(self, card, context)
+        --stage 1: remove debuff on played hand
+        if context.before and context.cardarea == G.play then
+            for i, played_card in ipairs(G.play.cards) do
+                print("index "..i.." has card "..played_card.ability.name)
+                if played_card.debuffed then
+                    G.play.cards[i].debuffed = false
+                    card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.increase
+                end
+            end
+        end
+
+        --stage 2: do the xmult thing 🤤🤤🤤🤤🤤
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
 
     end,
+    sb_credits = {
+        idea = {
+            "Serena"
+        },
+        art = {
+            "scopophobiaz"
+        },
+        code = {
+            "Serena"
+        }
+    }
 }
