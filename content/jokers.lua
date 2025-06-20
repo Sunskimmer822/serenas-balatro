@@ -2,6 +2,7 @@
 -- DETERMINATION
 SMODS.Joker {
     key = "determination",
+    name = "Determination",
     atlas = "jokers_atlas",
     pos = { x = 0, y = 0 },
     unlocked = true,
@@ -39,76 +40,49 @@ SMODS.Joker {
     
 }
 
--- Compound Interest
+-- Inflation
 SMODS.Joker {
     key = "inflation",
+    name = "Inflation",
     atlas = "jokers_atlas",
     pos = { x = 1, y = 0 },
     unlocked = true,
     discovered = true,
-    config = { extra = { inc = 1 } },
+    config = { extra = { increment = 1 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.inc } }
+        return { vars = { card.ability.extra.increment } }
     end,
     rarity = 2,
     cost = 6,
     calculate = function(self, card, context)
+
+
+
+        -- TODO: Handle Fortune Teller (maybe need to use a lovely injection to force the updated values to be added)
+
+
+
+
         if context.end_of_round and not context.game_over and context.main_eval then
-            for _, other in ipairs(G.jokers.cards) do
+            for _, joker in ipairs(G.jokers.cards) do
 
+                for i, v in pairs(joker.ability) do
 
-                print(type(other.ability.extra))
+                    print("type of value attached to field "..i.." on joker "..joker.ability.name.. " is "..type(v))
 
-
-                if type(other.ability.extra) ~= "nil" then
-                    if type(other.ability.extra) == "number" then
-                        other.ability.extra = other.ability.extra + card.ability.extra.inc
-                    elseif type(other.ability.extra) == "table" then
-                        for _, val in pairs(other.ability.extra) do
-                            print(type(val))
-                            if type(val) == "number" then
-                                val = val + card.ability.extra.inc
-                            elseif type(val) == "table" then
-                                for _2, val2 in pairs(val) do
-                                    if type(val2) == "number" then
-                                        val2 = val2 + card.ability.extra.inc
-                                    end
-                                end
+                    if type(v) == "number" and ((v>0) or ((i=="x_mult") and v~=0) or ((i=="h_x_mult") and v~=0)) and (i ~= "order") and (i ~= "cost") then
+                        G.jokers.cards[_].ability[i] = v + card.ability.extra.increment
+                        print("incremented field "..i.." to "..v)
+                    elseif type(v) == "table" then
+                        for i2, v2 in pairs(joker.ability[i]) do
+                            if type(v2) == "number" and (v2>0) then
+                                G.jokers.cards[_].ability[i][i2] = v2 + card.ability.extra.increment
+                                print("incremented field "..i2.." to "..v2)
                             end
                         end
                     end
                 end
-
-                if not (other.ability.mult == nil) then
-                    other.ability.mult = other.ability.mult + card.ability.extra.inc
-                end
-                if not (other.ability.h_mult == nil) then
-                    other.ability.h_mult = other.ability.h_mult + card.ability.extra.inc
-                end
-                if not (other.ability.h_x_mult == nil) then
-                    other.ability.h_x_mult = other.ability.h_x_mult + card.ability.extra.inc
-                end
-                if not (other.ability.h_dollars == nil) then
-                    other.ability.h_dollars = other.ability.h_dollars + card.ability.extra.inc
-                end
-                if not (other.ability.p_dollars == nil) then
-                    other.ability.p_dollars = other.ability.p_dollars + card.ability.extra.inc
-                end
-                if not (other.ability.t_mult == nil) then
-                    other.ability.t_mult = other.ability.t_mult + card.ability.extra.inc
-                end
-                if not (other.ability.t_chips == nil) then
-                    other.ability.t_chips = other.ability.t_chips + card.ability.extra.inc
-                end
-                if (not (other.ability.x_mult == nil)) and (not (other.ability.x_mult == 1))  then
-                    other.ability.x_mult = other.ability.x_mult + card.ability.extra.inc
-                end
-                if not (other.ability.h_size == nil) then
-                    other.ability.h_size = other.ability.h_size + card.ability.extra.inc
-                end
-                if not (other.ability.d_size == nil) then
-                    other.ability.d_size = other.ability.d_size + card.ability.extra.inc
-                end
+                                
             end
 
             return {
