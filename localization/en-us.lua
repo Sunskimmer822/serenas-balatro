@@ -29,9 +29,21 @@ return {
             j_serena_dr_house = {
                 name = "Dr. House",
                 text = {
-                    "This joker gains {X:mult,C:white}x#2#{} mult when a debuffed card is played,",
-                    "and removes debuffed from the card.",
-                    "{C:inactive}Currently x#1# mult.{}"
+                    "This joker gains {X:mult,C:white}x#2#{} mult when a {C:G.C.SUITS.Hearts}debuffed{} card is played,",
+                    "and removes {C:G.C.SUITS.Hearts}debuffed{} from the card.",
+                    "{C:inactive}Currently x#1# mult.{}",
+                    "Small chance to trigger additional random effect",
+                    "When {C:G.C.SUITS.Hearts}debuffed{} is removed from a card."
+                }
+            },
+            j_serena_sonic = {
+                name = "Sonic and Tails",
+                text = {
+                    "This joker gains {X:mult,C:white}x#2#{} mult if blind",
+                    "is cleared by the first played hand.",
+                    "(Currently {X:mult,C:white}x#1#{} mult.)",
+                    "Mult gain multiplies by 1.5x",
+                    "after each successful trigger."
                 }
             }
         },
@@ -39,6 +51,7 @@ return {
             dictionary = {
                 k_serena_nums_increased = "Values UP!",
                 k_serena_debuff_removed = "Cured!",
+                k_serena_gotta_go_fast = "Speeding up!"
             }
         }
     }

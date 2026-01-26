@@ -143,13 +143,25 @@ SMODS.Joker {
                 if played_card.debuff then
                     G.play.cards[i].debuff = false
                     card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.increase
-                    check = true                    
+                    check = true
+
+                    -- medical malpractice
+
+
+
+
+
+
+
+
+
+
                 end
             end
         end
         if check then 
             return {
-                message = localize('k_serena_debuff_removed')
+                message = localize('debuff_removed')
             }
         end
 
@@ -173,4 +185,33 @@ SMODS.Joker {
             "Serena"
         }
     }
+}
+
+SMODS.Joker {
+    key = "sonic",
+    atlas = "jokers_atlas",
+    pos = { x = 4, y = 0 },
+    unlocked = true,
+    discovered = true,
+    config = { extra = { x_mult = 1, increase = 1 } },
+    loc_vars = function (self, info_queue, card) 
+        return { vars = { card.ability.extra.x_mult, card.ability.extra.increase } }
+    end,
+    rarity = 2,
+    cost = 7,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.game_over and (G.GAME.current_round.hands_played == 1) and context.cardarea == G.jokers then
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.increase
+            card.ability.extra.increase = card.ability.extra.increase * 1.5
+            print(localize('gotta_go_fast'))
+            return {
+                message = localize('gotta_go_fast')
+            }
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.x_mult
+            }
+        end
+    end
 }
