@@ -1,10 +1,12 @@
-SMODS.Sound {
-    key = "soul",
-    path = "soul.ogg",
-}
+SBALA = {}
 
+assert(SMODS.load_file("assets/sounds/sound.lua"))()
 assert(SMODS.load_file("content/atlas.lua"))()
 assert(SMODS.load_file("content/jokers.lua"))()
+assert(SMODS.load_file("content/enhancements.lua"))()
+assert(SMODS.load_file("content/decks.lua"))()
+assert(SMODS.load_file("content/pokerhands.lua"))()
+assert(SMODS.load_file("content/planets.lua"))()
 
 
 
@@ -24,3 +26,15 @@ modded_food = {
     j_serena_vanilla = true,
     j_serena_500_cigarettes = true,
 }
+
+--util
+SBALA.exists = function(file)
+   local ok, err, code = os.rename(file, file)
+   if not ok then
+      if code == 13 then
+         -- Permission denied, but it exists
+         return true
+      end
+   end
+   return ok, err
+end

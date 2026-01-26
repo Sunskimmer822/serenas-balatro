@@ -84,7 +84,7 @@ SMODS.Joker {
             end
 
             return {
-                message = localize("k_serena_nums_increased"),
+                message = localize("serena_nums_increased"),
                 colour = G.C.MONEY
             }
         end
@@ -161,7 +161,7 @@ SMODS.Joker {
         end
         if check then 
             return {
-                message = localize('debuff_removed')
+                message = localize('serena_debuff_removed')
             }
         end
 
@@ -187,6 +187,7 @@ SMODS.Joker {
     }
 }
 
+--sonic (duh)
 SMODS.Joker {
     key = "sonic",
     atlas = "jokers_atlas",
@@ -203,15 +204,135 @@ SMODS.Joker {
         if context.end_of_round and not context.game_over and (G.GAME.current_round.hands_played == 1) and context.cardarea == G.jokers then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.increase
             card.ability.extra.increase = card.ability.extra.increase * 1.5
-            print(localize('gotta_go_fast'))
+            print(localize('serena_gotta_go_fast'))
             return {
-                message = localize('gotta_go_fast')
+                message = localize('serena_gotta_go_fast')
             }
         end
         if context.joker_main then
             return {
                 xmult = card.ability.extra.x_mult
             }
+        end
+    end
+}
+
+--Inside Joker
+SMODS.Joker {
+    key = 'arkveld_all_quavers',
+    atlas = "quaver_atlas",
+    pos = { x = 0, y = 0 },
+    unlocked = true,
+    discovered = true,
+    config = { extra = { x_mult = 6000000000 } },
+    loc_vars = function (self, info_queue, card) 
+        return { vars = { colours = { HEX('ee597b') } } }
+    end,
+    rarity = 4,
+    cost = 7,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            print(G.STEAM.user.getSteamID()) --have to have these as strings cause of how luasteam stores user ids
+            if tostring(G.STEAM.user.getSteamID())=="76561198868217568" or tostring(G.STEAM.user.getSteamID())=="76561198988159766" then
+                return {
+                    message = "all quavers speculative oops you in arkveld",
+                    colour = G.C.Mult,
+                    xmult = card.ability.extra.x_mult,
+                    func = function()
+                        play_sound("serena_quaver", 1, 2)
+                    end
+                }
+            end
+        end
+    end
+}
+
+--serena
+SMODS.Joker {
+    key = "serena",
+    atlas = "jokers_atlas",
+    pos = { x = 5, y = 0 },
+    unlocked = true,
+    discovered = true,
+    config = { extra = { inc = 0.1, x_mult = 1 } },
+    loc_vars = function (self, info_queue, card)
+        return { vars = { card.ability.extra.inc, card.ability.extra.x_mult } }
+    end,
+    rarity = 3,
+    cost = 7,
+    calculate = function(self, card, context)
+        if context.before then
+            if next(context.poker_hands['Straight']) then
+                card.ability.extra.x_mult = 1
+                return { message = localize("k_reset") }
+            end
+            local yuri_counter = 0
+            for _, playing_card in ipairs(context.scoring_hand) do
+                if playing_card.base.value == "Queen" then
+                    yuri_counter = yuri_counter+1
+                end
+            end
+            if yuri_counter>=2 then
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.inc
+            end
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.x_mult
+            }
+        end
+    end
+}
+
+--inkling
+SMODS.Joker {
+    key = "inkling",
+    atlas = "jokers_atlas",
+    pos = { x = 6, y = 0 },
+    unlocked = true,
+    discovered = true,
+    config = { extra = { inc = 0.25, x_mult = 1 } },
+    loc_vars = function (self, info_queue, card)
+        return { vars = { card.ability.extra.inc, card.ability.extra.x_mult } }
+    end,
+    rarity = 3,
+    cost = 7,
+    calculate = function(self, card, context)
+        card.ability.extra.x_mult = 1 + #G.hand.card_limit * 0.25
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.x_mult
+            }
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.x_mult = 1 + #G.hand.card_limit * 0.25
+    end
+}
+
+SMODS.Joker {
+    key = "quaverzord",
+    atlas = "quaver_atlas",
+    pos = { x = 2, y = 0 },
+    unlocked = true,
+    discovered = true,
+    config = {},
+    loc_vars = function (self, info_queue, card)
+        return { vars = { colours = { G.C.CHIPS }} }
+    end,
+    rarity = 3,
+    cost = 10,
+    calculate = function(self, card, context)
+        if context.before then
+            if #context.scoring_hand==4 and next(context.poker_hands['Four of a Kind']) then
+                for _, scoring_card in ipairs(context.scoring_hand) do
+                    scoring_card:set_ability("m_serena_quaver")
+                end
+                return {
+                    message = "Oops! All quavers!",
+                    colour = G.C.CHIPS
+                }
+            end
         end
     end
 }

@@ -1,6 +1,13 @@
 return {
     descriptions = {
-        Back = {}, --decks
+        Back = { --decks
+            b_serena_quaver = {
+                name = "Quaver Deck",
+                text = {
+                    "Oops! All {B:1,C:white}Quaver Cards{}!",
+                }
+            }
+        },
         Blind = {}, --blinds
         Joker = {
             j_serena_determination = {
@@ -45,14 +52,65 @@ return {
                     "Mult gain multiplies by 1.5x",
                     "after each successful trigger."
                 }
+            },
+            j_serena_arkveld_all_quavers = {
+                name = "Inside Joker",
+                text = {
+                    "{B:1,C:white}and the idea changes you in return...{}"
+                }
+            },
+            j_serena_serena = {
+                name = "Serena",
+                text = {
+                    "This Joker gains {X:mult,C:white}x#1#{} mult per hand played containing",
+                    "at least two queens. Resets if played hand contains a straight.",
+                    "{C:inactive}(Currently{} {X:mult,C:white}x#2#{} {C:inactive}mult){}",
+                    "{X:money,E:2}yuri!{}"
+                }
+            },
+            j_serena_inkling = {
+                name = "Inkling",
+                text = {
+                    "This joker gives {X:mult,C:white}x#1#{} mult per hand size.",
+                    "{C:inactive}(Currently{} {X:mult,C:white}x#2#{} {C:inactive} mult){}"
+                }
+            },
+            j_serena_quaverzord = {
+                name = "Quaverzord",
+                text = {
+                    "When a Four of a Kind is played,",
+                    "scored cards become {B:1,C:white}Quaver cards{}."
+                }
+            }
+        },
+        Enhanced = {
+            m_serena_quaver = {
+                name = "Quaver Card",
+                text = {
+                    "{C:chips}+#1#{} chips, because she's 12.",
+                    "{X:chips,C:white}x#2#{} chips, because she's blue.",
+                    "Everyone play UNBEATABLE right NOW!!"
+                }
+            }
+        },
+        Planet = {
+            c_serena_quaver_guitar = {
+                name = "Electric Guitar",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chips",
+                }
             }
         },
         misc = {
             dictionary = {
-                k_serena_nums_increased = "Values UP!",
-                k_serena_debuff_removed = "Cured!",
-                k_serena_gotta_go_fast = "Speeding up!"
-            }
+                serena_nums_increased = "Values UP!",
+                serena_debuff_removed = "Cured!",
+                serena_gotta_go_fast = "Speeding up!",
+                serena_UNBEATABLE = "UNBEATABLE!",
+            },
         }
     }
 }
