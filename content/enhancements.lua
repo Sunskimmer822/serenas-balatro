@@ -8,6 +8,7 @@ SMODS.Enhancement {
         return { vars = { card.ability.extra.bonus, card.ability.extra.x_chips } }
     end,
     replace_base_card = true,
+    no_rank = true,
     no_suit = true,
     set_ability = function(self, card, initial, delay_sprites)
         card.ability.name = "Quaver Card"

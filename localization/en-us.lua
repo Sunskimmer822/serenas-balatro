@@ -71,8 +71,8 @@ return {
             j_serena_inkling = {
                 name = "Inkling",
                 text = {
-                    "This joker gives {X:mult,C:white}x#1#{} mult per hand size.",
-                    "{C:inactive}(Currently{} {X:mult,C:white}x#2#{} {C:inactive} mult){}"
+                    "This joker gains {X:mult,C:white}x#1#{} mult per hand size.",
+                    "{C:inactive}(Currently{} {X:mult,C:white}x#2#{} {C:inactive}mult){}"
                 }
             },
             j_serena_quaverzord = {
@@ -80,6 +80,39 @@ return {
                 text = {
                     "When a Four of a Kind is played,",
                     "scored cards become {B:1,C:white}Quaver cards{}."
+                }
+            },
+            j_serena_enterprise = {
+                name = "Starship Enterprise",
+                text = {
+                    "This joker gains {X:mult,C:white}x#1#{} mult per",
+                    "unique {C:planet}Planet{} card used this run.",
+                    "{C:inactive}(Currently{} {X:mult,C:white}x#2#{} {C:inactive}mult){}"
+                }
+            },
+            j_serena_himejoker = {
+                name = "Himejoker",
+                text = {
+                    "unimplemented :("
+                }
+            },
+            j_serena_woker = {
+                name = "Woker",
+                text = {
+                    "Cards cannot be debuffed."
+                }
+            },
+            j_serena_fawesome = {
+                name = "Fawesome",
+                text = {
+                    "Fawesome has it for you.",
+                    "When blind is selected, create #1# random {X:serena_movie,C:white}Movie{} Joker."
+                }
+            },
+            j_serena_letterboxd = {
+                name = "Jokerboxd",
+                text = {
+                    "This Joker gives {C:dark_edition}+#1# Joker slot{} per {X:serena_movie,C:white}Movie{} Joker."
                 }
             }
         },
@@ -104,13 +137,20 @@ return {
                 }
             }
         },
-        misc = {
+    },
+    misc = {
             dictionary = {
                 serena_nums_increased = "Values UP!",
                 serena_debuff_removed = "Cured!",
                 serena_gotta_go_fast = "Speeding up!",
                 serena_UNBEATABLE = "UNBEATABLE!",
+                serena_yuriful = "yuri!",
+                k_serena_streaming_service = "Streaming Service",
+                k_serena_movie = "Movie",
             },
+            labels = {
+                k_serena_streaming_service = "Streaming Service",
+                k_serena_movie = "Movie",
+            }
         }
-    }
 }

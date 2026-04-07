@@ -17,8 +17,8 @@ SMODS.Consumable {
 				G.GAME.hands["serena_quaver_five"].l_chips,
 				colours = {
 					(
-						to_big(G.GAME.hands["serena_quaver_five"].level) == to_big(1) and G.C.UI.TEXT_DARK
-						or G.C.HAND_LEVELS[to_number(math.min(7, G.GAME.hands["serena_quaver_five"].level))]
+						G.GAME.hands["serena_quaver_five"].level == 1 and G.C.UI.TEXT_DARK
+						or G.C.HAND_LEVELS[math.min(7, G.GAME.hands["serena_quaver_five"].level)]
 					),
 				},
 			},

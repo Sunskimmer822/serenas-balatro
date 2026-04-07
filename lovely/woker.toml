@@ -1,0 +1,22 @@
+[manifest]
+version = "0.0.1"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''function Card:set_debuff(should_debuff)'''
+position = "after"
+payload = '''
+    for _, j in ipairs(G.jokers) do
+        print('woker check')
+        if j.key == "j_serena_woker" then
+            print('woker found')
+            if self.debuff and (should_debuff==false) then self:add_to_deck(true) end
+            self.debuff = false
+            return
+        end
+    end'''
+match_indent = true
+        
