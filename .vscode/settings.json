@@ -5,5 +5,12 @@
         "play_sound",
         "G",
         "Event"
+    ],
+    "Lua.diagnostics.disable": [
+        "ambiguity-1",
+        "undefined-global",
+        "undefined-field",
+        "need-check-nil",
+        "lowercase-global"
     ]
 }

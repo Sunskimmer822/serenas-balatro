@@ -1,5 +1,40 @@
 SBALA = {}
 
+
+SBALA.config = SMODS.current_mod.config or {}
+
+SBALA.config_tab = function()
+               SBALA.nodes = {
+                  {
+                     n=G.UIT.C, config={ align = "tm" },
+                     nodes={
+                        { 
+                        n = G.UIT.C, config = { align = "tm", padding = 0.5 }, nodes = {
+                           create_toggle({label = "Copyrighted Music", ref_table = SBALA.config.serenasbalatro, ref_value = "copyrightedmusic"}),
+                           create_toggle({label = "Movie Content", ref_table = SBALA.config.serenasbalatro, ref_value = "cinema"}) 
+                     } 
+                     },
+                     
+                  },
+                  }
+               }
+               return {
+               n = G.UIT.ROOT,
+               config = {
+                  emboss = 0.05,
+                  minh = 6,
+                  r = 0.1,
+                  minw = 10,
+                  align = "cm",
+                  padding = 0.2,
+                  colour = G.C.BLACK
+               },
+               nodes = SBALA.nodes
+            }
+
+              end
+
+
 --utils and stuff
 SBALA.exists = function(file)
    local ok, err, code = os.rename(file, file)
@@ -97,7 +132,7 @@ assert(SMODS.load_file("content/planets.lua"))()
 
 
 
-
+SMODS.current_mod.config_tab = SBALA.config_tab
 
 
 

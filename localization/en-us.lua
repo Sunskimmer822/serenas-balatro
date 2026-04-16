@@ -147,6 +147,7 @@ return {
                 serena_yuriful = "yuri!",
                 k_serena_streaming_service = "Streaming Service",
                 k_serena_movie = "Movie",
+                serena_set_enable_features = "Enable Features",
             },
             labels = {
                 k_serena_streaming_service = "Streaming Service",

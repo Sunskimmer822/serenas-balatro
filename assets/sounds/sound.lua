@@ -17,3 +17,16 @@ SMODS.Sound {
     key = "right_here",
     path = "right_here.ogg"
 }
+
+
+   SMODS.Sound({
+	key = "music_lego_movie",
+	path = "everything_is_awesome.ogg",
+	sync = false,
+	pitch = 1,
+	select_music_track = function()
+		return next(find_joker("j_serena_lego_movie")) and SBALA.config.serenasbalatro.copyrightedmusic
+			and 300
+	end,
+}) 
+
